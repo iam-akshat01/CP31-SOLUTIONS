@@ -1,36 +1,54 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
-{
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     int t;
     cin >> t;
-    while (t--)
-    {
-        int n;
-        cin >> n;
-        vector<int> ans(n);
-        map<int,int> freq;
+    while (t--) {
+        int n,k;
+        cin>>n>>k;
+        vector<int>ans(k,0);
         for(int i=0;i<n;i++){
-            cin>>ans[i];
-            freq[ans[i]]++;
+            int el;
+            cin>>el;
+            ans[el%k]++;
         }
-        int sz=freq.size();
-        multiset<int>st;
-        for(auto it:freq){
-            st.insert(it.second);
+        int answer=0;
+        if(k!=4){
+            if(ans[0]>0){
+                cout<<0<<endl;
+                continue;
+            }
+            for(int i=k-1;i>=0;i--){
+                if(ans[i]>0){
+                    answer=k-i;
+                    break;
+                }
+            }
+            cout<<answer<<endl;
+            continue;
         }
-        auto it=st.begin();
-        int maxi=INT_MIN;
-        while(it!=st.end()){
-            int x=st.size();
-            int f=*it;
-            maxi=max(maxi,x*f);
-            auto del=it;
-            it++;
-            st.erase(del);
+        else{
+            if(ans[0]>0 || ans[2]>=2){
+                cout<<0<<endl;
+                continue;
+            }
+            if(ans[3]>=1){
+                cout<<1<<endl;
+                continue;
+            }
+            if(ans[2]==1 && (ans[1]>=1)){
+                cout<<1<<endl;
+                continue;
+            }
+            else{
+                cout<<2<<endl;
+                continue;
+            }
         }
-        cout<<maxi<<endl;
     }
     return 0;
 }
