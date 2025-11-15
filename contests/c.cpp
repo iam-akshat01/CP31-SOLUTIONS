@@ -1,43 +1,51 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+long long run(long long x, const string &s) {
+    int n = s.size(), i = 0;
+    long long t = 0;
+    while (x > 0) {
+        if (s[i] == 'A') x -= 1;
+        else x /= 2;
+        t++;
+        i = (i + 1) % n;
+    }
+    return t;
+}
+
 int main() {
-    int n;
-    cin >> n;
-    while (n--) {
-        string s, t;
-        cin >> s >> t;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-        int y = s.length();
-        map<char, priority_queue<int>> mpp;
+    int T;
+    cin >> T;
+    while (T--) {
+        int n, q;
+        cin >> n >> q;
+        string s;
+        cin >> s;
 
-        for (int i = 0; i < y; i++) {
-            mpp[s[i]].push(i);
+        vector<long long> a(q);
+        for (auto &x : a) cin >> x;
+
+        bool allA = true, allB = true;
+        for (char c : s) {
+            if (c != 'A') allA = false;
+            if (c != 'B') allB = false;
         }
 
-        int x = t.size();
-        int pres = y;
-        bool check = 1;
-
-        for (int i = x - 1; i >= 0; i--) {
-            if (mpp[t[i]].empty()) {
-                check = 0;
-                break;
-            }
-            int ind = mpp[t[i]].top();
-            mpp[t[i]].pop();
-
-            if (pres < ind) {
-                check = 0;
-                break;
-            }
-            pres = ind;
+        for (long long x : a) {
+            long long ans;
+            if (allA) ans = x;
+            else if (allB) {
+                ans = 0;
+                while (x > 0) {
+                    x /= 2;
+                    ans++;
+                }
+            } else ans = run(x, s);
+            cout << ans << "\n";
         }
-
-        if (check)
-            cout << "Yes\n";
-        else
-            cout << "No\n";
     }
     return 0;
 }

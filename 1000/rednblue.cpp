@@ -10,17 +10,17 @@ int main(){
         string s;
         string append;
         for(int i=1;i<=ans;i++){
-            append+='R';
+            append+="R";
         }
-        append+='B';
+        append+="B";
 
         while(n>=(ans+1)){
             s+=append;
             n-=(ans+1);
-            r-=ans;
         }
         while(n>0){
-            s+='R';
+            s+="R";
+            n--;
         }
         cout<<s<<endl;
     }

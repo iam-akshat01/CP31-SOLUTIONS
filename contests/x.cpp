@@ -1,37 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+using ll = long long;
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
+
+
     int t;
     cin >> t;
     while (t--) {
-        long long n;
-        cin>>n;
-        map<long long,long long>mpp;
-        long long maxi=1;
-        for(int i=0;i<n;i++){
-            long long el;
+        int n,k,x;
+        cin >> n >>k >> x;
+
+        vector<int> ans(1e9,0);
+
+        int maxi=INT_MIN; int mini=INT_MAX;
+
+        for (int i = 0; i < n; i++) {
+            int el;
             cin>>el;
-            mpp[el]++;
-            maxi=max(maxi,mpp[el]);
+            maxi=max(maxi,ans[i]);
+            mini=min(mini,ans[i]);
         }
-        if(maxi==n){
-            cout<<0<<endl;
-            continue;
-        }
-        long long ops=0;
-        while((maxi<<1)<=n){
-            ops+=(1+(maxi));
-            maxi=(maxi<<1);
-        }
-        if(maxi<n){
-        ops+=(1+(n-maxi));
-        }
-        cout<<ops<<endl;
+
         
+
+        
+        bool found = false;
+        for (int i = 0; i < primes.size(); i++) {
+            if (hcf % primes[i] != 0) {
+                cout << primes[i] << "\n";
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) cout << -1 << "\n"; 
     }
+
     return 0;
 }
